@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayurvedic Prakriti Finder</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #87CEEB, #0071A4);
+            text-align: center;
+            color: #333;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        p.instructions {
+            font-weight: bold;
+        }
+
+        a {
+            text-decoration: none;
+            background-color: #0071A4;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ayurvedic Prakriti Finder</h1>
+    <p><strong>Ayurvedic Prakriti</strong> refers to an individual's unique mind-body constitution in Ayurveda. It is determined by the balance of the three doshas: Vata, Pitta, and Kapha.</p>
+    <p>Understanding your Prakriti is essential because it helps you make lifestyle and dietary choices that promote overall health and well-being. It guides you in managing imbalances and preventing illnesses.</p>
+    <p class="instructions">To discover your Ayurvedic Prakriti, answer a series of questions on the following page. Use a scale from 1 (Not at all) to 5 (Very often) to indicate your responses.</p>
+    <a href="{{ url_for('index') }}">Next</a>
+</body>
+</html>

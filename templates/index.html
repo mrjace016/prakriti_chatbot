@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayurvedic Prakriti Finder</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #87CEEB, #0071A4);
+            text-align: center;
+            color: #333;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+            max-width: 80%;
+        }
+
+        h3 {
+            font-size: 20px;
+            text-align: center;
+            color: #0071A4;
+            margin: 20px 0;
+        }
+
+        ol {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+        }
+
+        label {
+            color: #333;
+        }
+
+        input {
+            width: 40px;
+            height: 30px;
+            border: 1px solid #333;
+        }
+
+        button[type="submit"] {
+            background-color: #87CEEB; /* Light Blue */
+            padding: 12px 30px;
+            font-size: 18px;
+            border: none;
+            color: #333;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .result {
+            display: none;
+            margin-top: 20px;
+        }
+
+        p.result-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ayurvedic Prakriti Finder</h1>
+    <form method="POST" id="prakriti-form">
+        <h3>Answer the following questions:</h3>
+        <p>(Please use a scale from 1 to 5 to answer the questions)</p>
+        <ol>
+            {% for q, question, scale_start, scale_end in questions %}
+            <li>
+                <label for="{{ q }}">{{ question }}</label>
+                <input type="number" id="{{ q }}" name="{{ q }}" min="1" max="5" required>
+            </li>
+            {% endfor %}
+        </ol>
+        <button type="submit">Submit</button>
+        <div class="result">
+            <p class="result-text">Your Ayurvedic Prakriti: <span id="prakriti-result"></span></p>
+        </div>
+    </form>
+
+    <script>
+        document.getElementById('prakriti-form').addEventListener('submit', function (event) {
+            event.preventDefault();  // Prevent the form from submitting normally
+
+            const inputs = document.querySelectorAll('input[type="number"]');
+            let allFilled = true;
+
+            inputs.forEach(input => {
+                if (!input.value) {
+                    allFilled = false;
+                }
+            });
+
+            if (!allFilled) {
+                alert('Please answer all the questions.');
+            } else {
+                // Calculate and display the result on the same page
+                const vata_score = Array.from(inputs).slice(0, 5).reduce((acc, input) => acc + parseInt(input.value), 0);
+                const pitta_score = Array.from(inputs).slice(5, 10).reduce((acc, input) => acc + parseInt(input.value), 0);
+                const kapha_score = Array.from(inputs).slice(10).reduce((acc, input) => acc + parseInt(input.value), 0);
+
+                let prakriti = "";
+
+                if (vata_score > pitta_score && vata_score > kapha_score) {
+                    prakriti = "Vata";
+                } else if (pitta_score > vata_score && pitta_score > kapha_score) {
+                    prakriti = "Pitta";
+                } else {
+                    prakriti = "Kapha";
+                }
+
+                // Display the result
+                document.getElementById("prakriti-result").textContent = prakriti;
+                document.querySelector(".result").style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>
